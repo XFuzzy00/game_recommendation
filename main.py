@@ -48,6 +48,9 @@ df.drop_duplicates(inplace=True)
 
 # plotting the top 15 games:
 # df['game_name'].value_counts().head(15).plot(kind = 'bar',figsize =(15,5), title = "Most Played and Purchased Games")
+def top_games():
+    top_games_lst = df['game_name'].value_counts().head(5)
+    return top_games_lst
 
 
 # In[7]:
@@ -64,7 +67,7 @@ average = df.groupby(['game_name'],as_index = False).Hourplayed.mean()
 
 average['avg_hourplayed'] = average['Hourplayed']
 average.drop(columns ='Hourplayed',inplace = True )
-average.sort_values(by=['avg_hourplayed'], ascending=False)
+average.sort_values(by=['avg_hourplayed'], ascending=False) # type: ignore
 # average.head()
 # average.plot.scatter(x="game_name", y="avg_hourplayed")
 
@@ -112,7 +115,7 @@ pv = pv.loc[:,(pv != 0).any(axis=0)]
 # Collaborative Filtering using KNN
 from sklearn.neighbors import NearestNeighbors
 knn = NearestNeighbors(algorithm='brute',leaf_size=30,metric='cosine',metric_params=None,n_jobs=-1,n_neighbors=20,p=2,radius=1)
-knn.fit(pv)
+knn.fit(pv) # type: ignore
 
 
 # In[13]:
@@ -137,7 +140,7 @@ def query(name):
 # calculates at most 6 nearest neighbors
 
 def out(qury):
-    distance , indices = knn.kneighbors(pv.iloc[qury,:].values.reshape(1,-1),n_neighbors=12)
+    distance , indices = knn.kneighbors(pv.iloc[qury,:].values.reshape(1,-1),n_neighbors=11) # type: ignore
 
     lst = []
     for i in range(0,len(distance.flatten())):

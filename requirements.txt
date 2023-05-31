@@ -4,5 +4,5 @@ numpy==1.20.2
 streamlit==1.21.0
 scikit_learn==0.24.2
 requests==2.27.1
-bs4==4.12.2
+bs4==0.0.0
 json==0.3.0
